@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
-      "projectName": "Farmacia",
-      "projectPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
+      "projectUniqueName": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Banco_de_Dados\\Banco_de_Dados.csproj",
+      "projectName": "Banco_de_Dados",
+      "projectPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Banco_de_Dados\\Banco_de_Dados.csproj",
       "packagesPath": "C:\\Users\\arthurguedes\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\obj\\",
+      "outputPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Banco_de_Dados\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\arthurguedes\\AppData\\Roaming\\NuGet\\NuGet.Config",

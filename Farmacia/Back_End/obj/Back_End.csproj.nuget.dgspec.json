@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj": {}
+    "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Back_End\\Back_End.csproj": {}
   },
   "projects": {
-    "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj": {
+    "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Back_End\\Back_End.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
-        "projectName": "Farmacia",
-        "projectPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
+        "projectUniqueName": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Back_End\\Back_End.csproj",
+        "projectName": "Back_End",
+        "projectPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Back_End\\Back_End.csproj",
         "packagesPath": "C:\\Users\\arthurguedes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\obj\\",
+        "outputPath": "C:\\Users\\arthurguedes\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Back_End\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\arthurguedes\\AppData\\Roaming\\NuGet\\NuGet.Config",
