@@ -62,6 +62,24 @@ namespace Login_Page
                     if (usuario != null)
                     {
                         MessageBox.Show("Login bem-sucedido!");
+
+                        this.Hide();
+
+                        if (usuario.Cargo == "Gerente")
+                        {
+                            var formGerente = new Gerente();
+                            formGerente.Show();
+                        }
+                        if (usuario.Cargo == "Farmaceutico")
+                        {
+                            var formFarmaceutico = new Farmaceutico();
+                            formFarmaceutico.Show();
+                        }
+                        if (usuario.Cargo == "Gerente")
+                        {
+                            var formAtendente = new Atendente();
+                            formAtendente.Show();
+                        }
                     }
                     else
                     {

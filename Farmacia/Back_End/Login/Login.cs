@@ -16,7 +16,7 @@ namespace Login_Page
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Usuario>().ToTable("usuario");
+            modelBuilder.Entity<Usuario>().ToTable("usuarios");
         }
     }
         [Table("usuario")]
@@ -25,6 +25,12 @@ namespace Login_Page
         [Column("id")]
         [Key]
         public int Id { get; set; }
+
+        [Column("cargo")]
+        public string Cargo { get; set; }
+
+        [Column("cpf")]
+        public string Cpf { get; set; }
 
         [Column("nome")]
         public string Nome { get; set; }
