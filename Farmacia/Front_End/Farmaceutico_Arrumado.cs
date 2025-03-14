@@ -28,7 +28,7 @@ namespace Front_End
 
             // Tab 2 - Cadastro de Fornecedores
             TabPage tabFornecedores = new TabPage("Pesquisa e Consulta");
-            TableLayoutPanel panelFornecedores = CriarPainelFornecedores();
+            TableLayoutPanel panelFornecedores = CriarPainelConsulta();
             tabFornecedores.Controls.Add(panelFornecedores);
 
             // Tab 3 - Relatórios
@@ -36,7 +36,7 @@ namespace Front_End
             TableLayoutPanel panelRelatorios = CriarPainelRelatorios();
             tabRelatorios.Controls.Add(panelRelatorios);
 
-            // tabControl.TabPages.Add(tabUsuarios);
+            tabControl.TabPages.Add(tabUsuarios);
             tabControl.TabPages.Add(tabFornecedores);
             tabControl.TabPages.Add(tabRelatorios);
             this.Controls.Add(tabControl);
@@ -105,64 +105,34 @@ namespace Front_End
             return panel;
         }
 
-        private TableLayoutPanel CriarPainelFornecedores()
+        private TableLayoutPanel CriarPainelConsulta()
         {
-            TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true, Name = "panelFornecedores" };
+            TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, AutoSize = true, Name = "panelConsulta" };
 
-            // Controles de entrada
-            Label lblNome = new Label { Text = "Nome:", Name = "lblNomeFornecedor" };
-            panel.Controls.Add(lblNome, 0, 0);
-
-            TextBox txtNome = new TextBox { Dock = DockStyle.Fill, Name = "txtNomeFornecedor" };
-            panel.Controls.Add(txtNome, 1, 0);
-
-            Label lblCnpj = new Label { Text = "CNPJ:", Name = "lblCnpj" };
-            panel.Controls.Add(lblCnpj, 0, 1);
-
-            MaskedTextBox mskCnpj = new MaskedTextBox { Mask = "00.000.000/0000-00", Dock = DockStyle.Fill, Name = "mskCnpj" };
-            panel.Controls.Add(mskCnpj, 1, 1);
-
-            Label lblTelefone = new Label { Text = "Telefone:", Name = "lblTelefone" };
-            panel.Controls.Add(lblTelefone, 0, 2);
-
-            MaskedTextBox mskTelefone = new MaskedTextBox { Mask = "(00) 00000-0000", Dock = DockStyle.Fill, Name = "mskTelefone" };
-            panel.Controls.Add(mskTelefone, 1, 2);
-
-            Label lblEndereco = new Label { Text = "Endereço:", Name = "lblEndereco" };
-            panel.Controls.Add(lblEndereco, 0, 3);
-
-            TextBox txtEndereco = new TextBox { Dock = DockStyle.Fill, Name = "txtEndereco" };
-            panel.Controls.Add(txtEndereco, 1, 3);
-
-            // Tabela de Botões
             TableLayoutPanel buttonsTable = new TableLayoutPanel
             {
-                ColumnCount = 4,
+                ColumnCount = 1,
                 Dock = DockStyle.Fill,
                 AutoSize = true,
-                Name = "buttonsTableFornecedores"
+                Name = "buttonsTableConsulta"
             };
 
             // Adiciona colunas com preenchimento proporcional
-            for (int i = 0; i < 4; i++)
-                buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 
-            Button btnInserirFornecedor = new Button { Text = "Inserir Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserirFornecedor" };
-            buttonsTable.Controls.Add(btnInserirFornecedor, 0, 0);
+            Label lblCodigoMedicamento = new Label { Text = "Cód do Medicamento:", Dock = DockStyle.Fill, Name = "lblCodigoMedicamento" };
+            panel.Controls.Add(lblCodigoMedicamento, 0, 1);
 
-            Button btnListaFornecedor = new Button { Text = "Lista Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnListaFornecedor" };
-            buttonsTable.Controls.Add(btnListaFornecedor, 1, 0);
+            TextBox txtCodigoMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtCodigoMedicamento" };
+            panel.Controls.Add(txtCodigoMedicamento, 0, 2);
 
-            Button btnAtualizarFornecedor = new Button { Text = "Atualizar Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnAtualizarFornecedor" };
-            buttonsTable.Controls.Add(btnAtualizarFornecedor, 2, 0);
+            Button btnPesquisar = new Button { Text = "Pesquisar", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnPesquisar" };
+            buttonsTable.Controls.Add(btnPesquisar, 0, 3);
 
-            Button btnApagarFornecedor = new Button { Text = "Apagar Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnApagarFornecedor" };
-            buttonsTable.Controls.Add(btnApagarFornecedor, 3, 0);
+            panel.Controls.Add(buttonsTable, 0, 4);
 
-            panel.Controls.Add(buttonsTable, 1, 4);
-
-            DataGridView dgvFornecedores = new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill, Name = "dgvFornecedores" };
-            panel.Controls.Add(dgvFornecedores, 1, 5);
+            DataGridView dgvConsulta = new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill, Name = "dgvConsulta" };
+            panel.Controls.Add(dgvConsulta, 0, 5);
 
             return panel;
         }
@@ -219,11 +189,11 @@ namespace Front_End
         }
 
 
-        // [STAThread]
-        // static void Main()
-        // {
-        //     Application.EnableVisualStyles();
-        //     Application.Run(new GerenteForm());
-        // }
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.Run(new GerenteForm());
+        }
     }
 }
