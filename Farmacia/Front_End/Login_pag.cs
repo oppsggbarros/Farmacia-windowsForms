@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 
-namespace Login_Page
+namespace Front_End
 {
     public class Executar
     {
@@ -50,14 +50,14 @@ namespace Login_Page
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string nome = txtLogin.Text;
+            string cpf = txtLogin.Text;
             string senha = txtSenha.Text;
 
             using (var context = new AppDbContext())
             {
                 try
                 {
-                    var usuario = context.Usuarios.FirstOrDefault(u => u.Nome == nome && u.Senha == senha);
+                    var usuario = context.Usuarios.FirstOrDefault(u => u.Cpf == cpf && u.Senha == senha);
 
                     if (usuario != null)
                     {
@@ -67,17 +67,17 @@ namespace Login_Page
 
                         if (usuario.Cargo == "Gerente")
                         {
-                            var formGerente = new Gerente();
+                            var formGerente = new GerenteForm();
                             formGerente.Show();
                         }
                         if (usuario.Cargo == "Farmaceutico")
                         {
-                            var formFarmaceutico = new Farmaceutico();
+                            var formFarmaceutico = new FarmaceuticoForm();
                             formFarmaceutico.Show();
                         }
-                        if (usuario.Cargo == "Gerente")
+                        if (usuario.Cargo == "Atendente")
                         {
-                            var formAtendente = new Atendente();
+                            var formAtendente = new AtendenteForm();
                             formAtendente.Show();
                         }
                     }
@@ -85,6 +85,7 @@ namespace Login_Page
                     {
                         MessageBox.Show("Login ou senha incorretos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    
                 }
                 catch (Exception ex)
                 {

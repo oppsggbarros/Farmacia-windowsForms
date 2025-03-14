@@ -30,11 +30,11 @@ namespace Front_End
             this.Controls.Add(tabControl);
         }
 
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new FarmaceuticoForm());
-        }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.Run(new FarmaceuticoForm());
+        // }
     }
 }
