@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 // #606060 #EBEBEB #233ED9
 namespace Front_End
 {
-    public partial class GerenteForm : Form
+    public partial class FarmaceuticoForm : Form
     {
-        public GerenteForm()
+        public FarmaceuticoForm()
         {
             // InitializeComponent();
             ConfigurarInterface();
@@ -15,7 +15,7 @@ namespace Front_End
 
         private void ConfigurarInterface()
         {
-            this.Text = "Painel do Gerente";
+            this.Text = "Painel do Farmaceutico";
             this.Size = new System.Drawing.Size(1000, 600);
             this.AutoSize = true;
 
@@ -189,11 +189,11 @@ namespace Front_End
         }
 
 
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new GerenteForm());
-        }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.Run(new FarmaceuticoForm());
+        // }
     }
 }
