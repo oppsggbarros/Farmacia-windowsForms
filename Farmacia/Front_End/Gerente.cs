@@ -55,7 +55,25 @@ namespace Front_End
             panel.Controls.Add(new MaskedTextBox { Mask = "000.000.000-00", Dock = DockStyle.Fill }, 1, 2);
             panel.Controls.Add(new Label { Text = "Senha:" }, 0, 3);
             panel.Controls.Add(new TextBox { PasswordChar = '*', Dock = DockStyle.Fill }, 1, 3);
-            panel.Controls.Add(new Button { Text = "Adicionar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Top }, 1, 4);
+
+            TableLayoutPanel buttonsTable = new TableLayoutPanel
+            {
+                ColumnCount = 4,
+                Dock = DockStyle.Fill,
+                AutoSize = true
+            };
+
+            // Adiciona colunas com preenchimento proporcional
+            for (int i = 0; i < 4; i++)
+                buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            buttonsTable.Controls.Add(new Button { Text = "Inserir Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 0, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Lista Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 1, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Atualizar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 2, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Apagar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 3, 0);
+
+            panel.Controls.Add(buttonsTable, 1, 4);
+
             panel.Controls.Add(new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill }, 1, 5);
             return panel;
         }
@@ -71,7 +89,25 @@ namespace Front_End
             panel.Controls.Add(new MaskedTextBox { Mask = "(00) 00000-0000", Dock = DockStyle.Fill }, 1, 2);
             panel.Controls.Add(new Label { Text = "Endereço:" }, 0, 3);
             panel.Controls.Add(new TextBox { Dock = DockStyle.Fill }, 1, 3);
-            panel.Controls.Add(new Button { Text = "Adicionar Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Top }, 1, 4);
+
+            TableLayoutPanel buttonsTable = new TableLayoutPanel
+            {
+                ColumnCount = 4,
+                Dock = DockStyle.Fill,
+                AutoSize = true
+            };
+
+            // Adiciona colunas com preenchimento proporcional
+            for (int i = 0; i < 4; i++)
+                buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            buttonsTable.Controls.Add(new Button { Text = "Inserir Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 0, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Lista Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 1, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Atualizar Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 2, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Apagar Fornecedor", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 3, 0);
+
+            panel.Controls.Add(buttonsTable, 1, 4);
+
             panel.Controls.Add(new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill }, 1, 5);
             return panel;
         }
@@ -80,13 +116,30 @@ namespace Front_End
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true };
             panel.Controls.Add(new Label { Text = "Descrição:" }, 0, 0);
-            panel.Controls.Add(new TextBox { Dock = DockStyle.Fill }, 1, 0);
+            panel.Controls.Add(new TextBox { Dock = DockStyle.Fill }, 0, 1);
             panel.Controls.Add(new Label { Text = "Data de Geração:" }, 0, 1);
-            panel.Controls.Add(new DateTimePicker { Dock = DockStyle.Fill, Enabled = false }, 1, 1);
-            panel.Controls.Add(new Label { Text = "Usuário Gerador:" }, 0, 2);
-            panel.Controls.Add(new TextBox { Dock = DockStyle.Fill, ReadOnly = true }, 1, 2);
+            panel.Controls.Add(new DateTimePicker { Dock = DockStyle.Fill, Enabled = false }, 0, 1);
+            panel.Controls.Add(new Label { Text = "Usuário Gerador:" }, 0, 1);
+            panel.Controls.Add(new TextBox { Dock = DockStyle.Fill, ReadOnly = true }, 0, 1);
             panel.Controls.Add(new Button { Text = "Gerar Relatório", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Top }, 1, 3);
-                        panel.Controls.Add(new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill }, 1, 4);
+
+            TableLayoutPanel buttonsTable = new TableLayoutPanel
+            {
+                ColumnCount = 4,
+                Dock = DockStyle.Fill,
+                AutoSize = true
+            };
+
+            // Adiciona colunas com preenchimento proporcional
+            for (int i = 0; i < 4; i++)
+                buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            buttonsTable.Controls.Add(new Button { Text = "Relatório Financeiro", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 0, 0);
+            buttonsTable.Controls.Add(new Button { Text = "Relatório Estoque", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill }, 1, 0);
+
+            panel.Controls.Add(buttonsTable, 1, 4);
+
+            panel.Controls.Add(new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill }, 1, 4);
 
             return panel;
         }
