@@ -9,14 +9,14 @@ namespace Farmacia.Back_End.ConexaoBanco
 {
     public class Conexao : DbContext
     {
-        public Conexao(DbContextOptions options) : base(options)
-        {
-        }
+        // public Conexao(DbContextOptions options) : base(options)
+        // {
+        // }
 
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Medicamentos> Medicamentos { get; set; }
         public DbSet<Vendas> Vendas { get; set; }
-
+        
         public DbSet<Fornecedores> Fornecedores { get; set; }
 
         public DbSet<Estoques> Estoque { get; set; }
@@ -27,7 +27,7 @@ namespace Farmacia.Back_End.ConexaoBanco
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=DesafioFarmacia;Username=postgres;Password=");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=farmacia;Username=postgres;Password=3@56Casa");
         }
 
        protected override void OnModelCreating(ModelBuilder modelBuilder)
