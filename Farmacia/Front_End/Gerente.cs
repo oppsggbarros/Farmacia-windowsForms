@@ -144,11 +144,11 @@ namespace Front_End
             return panel;
         }
 
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new GerenteForm());
-        }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.Run(new GerenteForm());
+        // }
     }
 }

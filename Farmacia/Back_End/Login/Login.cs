@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace Login_Page
+namespace Front_End
 {
     public class AppDbContext : DbContext
     {
