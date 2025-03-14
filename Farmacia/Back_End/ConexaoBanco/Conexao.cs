@@ -27,7 +27,7 @@ namespace Farmacia.Back_End.ConexaoBanco
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=DesafioFarmacia;Username=postgres;Password=#Vasco2024");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=DesafioFarmacia;Username=postgres;Password=");
         }
 
        protected override void OnModelCreating(ModelBuilder modelBuilder)
