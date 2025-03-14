@@ -21,7 +21,7 @@ namespace Farmacia.Back_End.Models
         [Column("data_venda")]
         public DateTime data_venda { get; set; }
         [Column("valor_total")]
-        public double valor_total { get; set; }
+        public decimal valor_total { get; set; }
         [Column("atendente_id")]
         public int atendente_id { get; set; }
         [ForeignKey("medicamento_id")]
