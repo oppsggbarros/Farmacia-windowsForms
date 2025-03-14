@@ -4801,24 +4801,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gabrielgravena\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\kauavicente\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gabrielgravena\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
+      "projectUniqueName": "C:\\Users\\kauavicente\\Documents\\Aulas C#\\Backend-Digix\\Aula 6 - Desafio\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
       "projectName": "Farmacia",
-      "projectPath": "C:\\Users\\gabrielgravena\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
-      "packagesPath": "C:\\Users\\gabrielgravena\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gabrielgravena\\Documents\\GitHub\\Farmacia-windowsForms\\Farmacia\\obj\\",
+      "projectPath": "C:\\Users\\kauavicente\\Documents\\Aulas C#\\Backend-Digix\\Aula 6 - Desafio\\Farmacia-windowsForms\\Farmacia\\Farmacia.csproj",
+      "packagesPath": "C:\\Users\\kauavicente\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kauavicente\\Documents\\Aulas C#\\Backend-Digix\\Aula 6 - Desafio\\Farmacia-windowsForms\\Farmacia\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gabrielgravena\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\kauavicente\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4888,7 +4883,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
