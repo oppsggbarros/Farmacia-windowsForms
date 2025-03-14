@@ -41,6 +41,7 @@ href=""
 
 <h2>👥 Autores</h2>
 <h3>• Amanda<br>
+•  Diogo Leite<br>
 • Kauã Vicente<br>
 • Willdanthê<br>
 • Rodrigo<br>
