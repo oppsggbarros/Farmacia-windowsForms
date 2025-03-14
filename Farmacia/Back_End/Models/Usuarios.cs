@@ -11,14 +11,14 @@ namespace Farmacia.Back_End.Models
     {
         [Key]
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("nome")]
-        public string Nome { get; set; }
+        public string nome { get; set; }
         [Column("cargo")]
-        public string Cargo { get; set; }
+        public string cargo { get; set; }
         [Column("cpf")]
-        public string Cpf { get; set; }
+        public string cpf { get; set; }
         [Column("senha")]
-        public string Senha { get; set; }
+        public string senha { get; set; }
     }
 }

@@ -11,19 +11,19 @@ namespace Farmacia.Back_End.Models
     {
         //[Key]
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("nome")]
-        public string Nome { get; set; }
+        public string nome { get; set; }
         [Column("descricao")]
-        public string Descricao { get; set; }
+        public string descricao { get; set; }
         [Column("tipo")]
-        public string Tipo { get; set; }
+        public string tipo { get; set; }
         [Column("preco")]
-        public double Preco { get; set; }
+        public double preco { get; set; }
         [Column("estoque_atual")]
-        public int EstoqueAtual { get; set; }
+        public int estoque_atual { get; set; }
         [Column("data_validade")]
-        public DateTime DataValidade { get; set; }
+        public DateTime data_validade { get; set; }
 
     }
 }

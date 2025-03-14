@@ -10,9 +10,9 @@ namespace Farmacia.Back_End.Models
     public class Estoques
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("nome")]
-        public string Nome { get; set; } = string.Empty;
+        public string nome { get; set; } = string.Empty;
         [Column("medicamento_id")]
         public int medicamento_id { get; set; }
         [Column("quantidade")]
@@ -21,7 +21,7 @@ namespace Farmacia.Back_End.Models
         public DateTime ultima_atualizacao { get; set; }
         [ForeignKey("medicamento_id")]
         [Column("medicamento_id")]
-        public Medicamentos Medicamentos { get; set; }
+        public Medicamentos medicamento { get; set; }
 
     }
 }

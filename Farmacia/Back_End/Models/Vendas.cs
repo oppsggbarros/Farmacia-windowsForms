@@ -11,7 +11,7 @@ namespace Farmacia.Back_End.Models
     {
         [Key]
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("cliente_nome")]
         public string cliente_nome { get; set; } = string.Empty;
         [Column("medicamento_id")]
@@ -25,9 +25,9 @@ namespace Farmacia.Back_End.Models
         [Column("atendente_id")]
         public int atendente_id { get; set; }
         [ForeignKey("medicamento_id")]
-        public Medicamentos medicamentos { get; set; }
+        public Medicamentos medicamento { get; set; } 
         [ForeignKey("atendente_id")]
-        public Usuarios Usuarios { get; set; }
+        public Usuarios usuario { get; set; }
 
         
         

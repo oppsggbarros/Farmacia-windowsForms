@@ -11,18 +11,18 @@ namespace Farmacia.Back_End.Models
     {
         [Key]
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("medicamento_id")]
-        public int Medicamento_Id { get; set; }
+        public int medicamento_id { get; set; }
         [Column("fornecedor_id")]
-        public int Fornecedor_Id { get; set; }
+        public int fornecedor_id { get; set; }
         [ForeignKey("medicamento_id")]
-        public Medicamentos Medicamentos { get; set; }
+        public Medicamentos medicamento { get; set; }
         [ForeignKey("fornecedor_id")]
-        public Fornecedores Fornecedores { get; set; }
+        public Fornecedores fornecedor { get; set; }
         [Column("quantidade")]
-        public int Quantidade { get; set; }
+        public int quantidade { get; set; }
         [Column("data_entrega")]
-        public DateTime Data_Entrega { get; set; }
+        public DateTime data_entrega { get; set; }
     }
 }

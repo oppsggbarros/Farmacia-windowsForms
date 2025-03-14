@@ -11,7 +11,7 @@ namespace Farmacia.Back_End.Models
     {
         [Key]
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
         [Column("descricao")]
         public string descricao { get; set; }
         [Column("data_geracao")]
@@ -19,6 +19,6 @@ namespace Farmacia.Back_End.Models
         [Column("usuario_id")]
         public int usuario_id { get; set; }
         [ForeignKey("usuario_id")]
-        public Usuarios Usuarios { get; set; }
+        public Usuarios usuario { get; set; }
     }
 }

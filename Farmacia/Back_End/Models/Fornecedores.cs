@@ -11,16 +11,16 @@ namespace Farmacia.Back_End.Models
     {
         [Key]
         [Column("id")]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Column("nome")]
-        public string Nome { get; set; } = string.Empty;
+        public string nome { get; set; } = string.Empty;
         [Column("cnpj")]
-        public string Cnpj { get; set; } = string.Empty;
+        public string cnpj { get; set; } = string.Empty;
         [Column("telefone")]
-        public string Telefone { get; set; } = string.Empty;
+        public string telefone { get; set; } = string.Empty;
         [Column("endereco")]
-        public string Endereco { get; set; } = string.Empty;
+        public string endereco { get; set; } = string.Empty;
 
     }
 }
