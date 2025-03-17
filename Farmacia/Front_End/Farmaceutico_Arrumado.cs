@@ -44,33 +44,45 @@ namespace Front_End
 
         private TableLayoutPanel CriarPainelUsuarios()
         {
-            TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true, Name = "panelUsuarios" };
+            TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true, Name = "panelRegistro" };
             panel.BackColor = ColorTranslator.FromHtml("#EBEBEB");
 
             // Controles de entrada
+            Label lblCliente = new Label { Text = "Cliente:", Name = "lblCliente" };
+            panel.Controls.Add(lblCliente, 0, 0);
+
+            TextBox txtCliente = new TextBox { Dock = DockStyle.Fill, Name = "txtCliente" };
+            panel.Controls.Add(txtCliente, 1, 0);
+
             Label lblNome = new Label { Text = "Nome:", Name = "lblNome" };
-            panel.Controls.Add(lblNome, 0, 0);
+            panel.Controls.Add(lblNome, 0, 1);
 
             TextBox txtNome = new TextBox { Dock = DockStyle.Fill, Name = "txtNome" };
-            panel.Controls.Add(txtNome, 1, 0);
+            panel.Controls.Add(txtNome, 1, 1);
 
-            Label lblCodigoProduto = new Label { Text = "Código Produto:", Name = "lblCodigoProduto" };
-            panel.Controls.Add(lblCodigoProduto, 0, 1);
+            Label lblMedicamento = new Label { Text = "Medicamento:", Name = "lblMedicamento" };
+            panel.Controls.Add(lblMedicamento, 0, 2);
 
-            TextBox txtCodigoProduto = new TextBox { Dock = DockStyle.Fill, Text = "Gerente", Name = "txtCodigoProduto" };
-            panel.Controls.Add(txtCodigoProduto, 1, 1);
+            TextBox txtMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtMedicamento" };
+            panel.Controls.Add(txtMedicamento, 1, 2);
 
-            Label lblCpf = new Label { Text = "CPF:", Name = "lblCpf" };
-            panel.Controls.Add(lblCpf, 0, 2);
+            Label lblQuantidade = new Label { Text = "Quantidade:", Name = "lblQuantidade" };
+            panel.Controls.Add(lblQuantidade, 0, 3);
 
-            MaskedTextBox mskCpf = new MaskedTextBox { Mask = "000.000.000-00", Dock = DockStyle.Fill, Name = "mskCpf" };
-            panel.Controls.Add(mskCpf, 1, 2);
+            TextBox txtQuantidade = new TextBox { Dock = DockStyle.Fill, Name = "txtQuantidade" };
+            panel.Controls.Add(txtQuantidade, 1, 3);
 
-            Label lblSenha = new Label { Text = "Senha:", Name = "lblSenha" };
-            panel.Controls.Add(lblSenha, 0, 3);
+            Label lblDataVenda = new Label { Text = "Data da Venda:", Name = "lblDataVenda" };
+            panel.Controls.Add(lblDataVenda, 0, 4);
 
-            TextBox txtSenha = new TextBox { PasswordChar = '*', Dock = DockStyle.Fill, Name = "txtSenha" };
-            panel.Controls.Add(txtSenha, 1, 3);
+            DateTimePicker dtpDataVenda = new DateTimePicker { Dock = DockStyle.Fill, Enabled = false, Name = "dtpDataVenda" };
+            panel.Controls.Add(dtpDataVenda, 1, 4);
+
+            Label lblValorTotal = new Label { Text = "Valor Total:", Name = "lblValorTotal" };
+            panel.Controls.Add(lblValorTotal, 0, 5);
+
+            TextBox txtValorTotal = new TextBox { Dock = DockStyle.Fill, Enabled = false, Name = "txtValorTotal" };
+            panel.Controls.Add(txtValorTotal, 1, 5);
 
             // Tabela de Botões
             TableLayoutPanel buttonsTable = new TableLayoutPanel
@@ -78,29 +90,29 @@ namespace Front_End
                 ColumnCount = 4,
                 Dock = DockStyle.Fill,
                 AutoSize = true,
-                Name = "buttonsTableUsuarios"
+                Name = "buttonsTableRegistro"
             };
 
             // Adiciona colunas com preenchimento proporcional
             for (int i = 0; i < 4; i++)
                 buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
 
-            Button btnInserirUsuario = new Button { Text = "Inserir Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserirUsuario" };
-            buttonsTable.Controls.Add(btnInserirUsuario, 0, 0);
+            Button btnInserir = new Button { Text = "Inserir Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserir" };
+            buttonsTable.Controls.Add(btnInserir, 0, 0);
 
-            Button btnListaUsuario = new Button { Text = "Lista Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnListaUsuario" };
-            buttonsTable.Controls.Add(btnListaUsuario, 1, 0);
+            Button btnLista = new Button { Text = "Lista Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnLista" };
+            buttonsTable.Controls.Add(btnLista, 1, 0);
 
-            Button btnAtualizarUsuario = new Button { Text = "Atualizar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnAtualizarUsuario" };
-            buttonsTable.Controls.Add(btnAtualizarUsuario, 2, 0);
+            Button btnAtualizar = new Button { Text = "Atualizar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnAtualizar" };
+            buttonsTable.Controls.Add(btnAtualizar, 2, 0);
 
-            Button btnApagarUsuario = new Button { Text = "Apagar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnApagarUsuario" };
-            buttonsTable.Controls.Add(btnApagarUsuario, 3, 0);
+            Button btnApagar = new Button { Text = "Apagar Usuário", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnApagar" };
+            buttonsTable.Controls.Add(btnApagar, 3, 0);
 
-            panel.Controls.Add(buttonsTable, 1, 4);
+            panel.Controls.Add(buttonsTable, 1, 6);
 
-            DataGridView dgvUsuarios = new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill, Name = "dgvUsuarios" };
-            panel.Controls.Add(dgvUsuarios, 1, 5);
+            DataGridView dgvRegistro = new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill, Name = "dgvRegistro" };
+            panel.Controls.Add(dgvRegistro, 1, 7);
 
             return panel;
         }
