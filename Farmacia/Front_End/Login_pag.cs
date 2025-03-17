@@ -3,18 +3,20 @@ using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Farmacia.Back_End.ConexaoBanco;
+using Farmacia.Back_End.CRUD;
 
 namespace Front_End
 {
     public class Executar
     {
-        // [STAThread]
-        // static void Main()
-        // {
-        //     Application.EnableVisualStyles();
-        //     Application.SetCompatibleTextRenderingDefault(false);
-        //     Application.Run(new Login());
-        // }
+        [STAThread]
+        static void Main()
+        {
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Login());
+        }
     }
 
     public class Login : Form
