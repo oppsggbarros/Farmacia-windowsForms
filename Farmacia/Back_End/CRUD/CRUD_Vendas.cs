@@ -13,29 +13,45 @@ namespace Farmacia.Back_End.CRUD
         public void Inserir_Venda(string cliente_nome, int medicamento_id, int quantidade, DateTime data_venda, decimal valor_total, int atendente_id)
         {
             data_venda = data_venda.ToUniversalTime();
-            using (var con = new Conexao())
+            try
             {
-                con.Vendas.Add(new Vendas
+                using (var con = new Conexao())
                 {
-                    cliente_nome = cliente_nome,
-                    medicamento_id = medicamento_id,
-                    quantidade = quantidade,
-                    data_venda = data_venda,
-                    valor_total = valor_total,
-                    atendente_id = atendente_id
-                });
+                    con.Vendas.Add(new Vendas
+                    {
+                        cliente_nome = cliente_nome,
+                        medicamento_id = medicamento_id,
+                        quantidade = quantidade,
+                        data_venda = data_venda,
+                        valor_total = valor_total,
+                        atendente_id = atendente_id
+                    });
 
-                con.SaveChanges();
-                Console.WriteLine("Venda registrada com sucesso!");
+                    con.SaveChanges();
+                    Console.WriteLine("Venda registrada com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao registrar venda: " + ex.Message);
             }
         }
 
        
         public List<Vendas> Listar_Vendas()
         {
-            using (var con = new Conexao())
+            try
             {
-                return con.Vendas.ToList();
+                
+                using (var con = new Conexao())
+                {
+                    return con.Vendas.ToList();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                
+                throw;
             }
         }
 

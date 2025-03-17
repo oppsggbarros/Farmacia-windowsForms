@@ -11,34 +11,54 @@ namespace Farmacia.Back_End.CRUD
     {        
         public void Inserir_Fornecedor(string nome, string cnpj, string telefone, string endereco)
         {
-            using (var con = new Conexao())
+            try
             {
-                con.Fornecedores.Add(new Fornecedores
+                 using (var con = new Conexao())
                 {
-                    nome = nome,
-                    cnpj = cnpj,
-                    telefone = telefone,
-                    endereco = endereco
-                });
+                    con.Fornecedores.Add(new Fornecedores
+                    {
+                        nome = nome,
+                        cnpj = cnpj,
+                        telefone = telefone,
+                        endereco = endereco
+                    });
 
-                con.SaveChanges();
-                Console.WriteLine("Fornecedor inserido com sucesso!");
+                    con.SaveChanges();
+                    Console.WriteLine("Fornecedor inserido com sucesso!");
+                    MessageBox.Show("Operação realizada com sucesso!");
+                }
             }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
         }
 
         
         public List<Fornecedores> Listar_Fornecedores()
         {
-            using (var con = new Conexao())
+            try 
             {
-                return con.Fornecedores.ToList();
+                using (var con = new Conexao())
+                {
+                    MessageBox.Show("Operação realizada com sucesso!");
+                    return con.Fornecedores.ToList();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return new List<Fornecedores>();
             }
         }
 
        
         public void Atualizar_Fornecedor(int id, string nome, string cnpj, string telefone, string endereco)
         {
-            using (var con = new Conexao())
+            try
+            {
+                using (var con = new Conexao())
             {
                 var fornecedor = con.Fornecedores.Find(id);
                 if (fornecedor != null)
@@ -56,24 +76,40 @@ namespace Farmacia.Back_End.CRUD
                     Console.WriteLine("Fornecedor não encontrado!");
                 }
             }
+            }
+            catch (System.Exception ex)
+            {
+                
+                MessageBox.Show("Erro ao atualizar o fornecedor!", ex.Message);
+            }
+            
         }
 
         public void Excluir_Fornecedor(int id)
         {
-            using (var con = new Conexao())
+            try
             {
-                var fornecedor = con.Fornecedores.Find(id);
-                if (fornecedor != null)
+                using (var con = new Conexao())
                 {
-                    con.Fornecedores.Remove(fornecedor);
-                    con.SaveChanges();
-                    Console.WriteLine("Fornecedor excluído com sucesso!");
-                }
-                else
-                {
-                    Console.WriteLine("Fornecedor não encontrado!");
+                    var fornecedor = con.Fornecedores.Find(id);
+                    if (fornecedor != null)
+                    {
+                        con.Fornecedores.Remove(fornecedor);
+                        con.SaveChanges();
+                        Console.WriteLine("Fornecedor excluído com sucesso!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Fornecedor não encontrado!");
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                
+                MessageBox.Show("Erro ao excluir o fornecedor!", ex.Message);
+            }
+            
         }
 
         
