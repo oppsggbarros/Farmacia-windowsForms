@@ -15,6 +15,7 @@ namespace Front_End
         private TextBox txtSenha;
         private Button btnInserir, btnInserirFornecedor, btnListaFornecedor, btnAtualizarFornecedor, btnApagarFornecedor, btnRelatorioFinanceiro, btnRelatorioEstoque, btnLista, btnAtualizar, btnApagar;
         private DataGridView dgvUsuarios, dgvFornecedores, dgvRelatorios;
+        private Label labelNome, labelCNPJ, labelTelefone, labelEndereco;
 
         public GerenteForm()
         {
@@ -50,21 +51,6 @@ namespace Front_End
             tabControl.TabPages.Add(tabFornecedores);
             tabControl.TabPages.Add(tabRelatorios);
             this.Controls.Add(tabControl);
-
-            // Criando o botão de Logout
-            Button btnLogout = new Button
-            {
-                Text = "Sair",
-                BackColor = Color.Red,
-                ForeColor = Color.White,
-                Dock = DockStyle.Bottom,
-                Height = 40
-            };
-
-            btnLogout.Click += BtnLogout_Click;
-
-            // Adicionando o botão à interface
-            this.Controls.Add(btnLogout);
         }
 
         private TableLayoutPanel CriarPainelUsuarios()
@@ -182,27 +168,29 @@ namespace Front_End
             panel.BackColor = ColorTranslator.FromHtml("#EBEBEB");
 
             // Label e TextBox para Nome
-            Label labelNome = new Label { Text = "Nome:", Name = "labelNomeFornecedor" };
+            labelNome = new Label { Text = "Nome:", Name = "labelNomeFornecedor" };
             panel.Controls.Add(labelNome, 0, 0);
-            TextBox txtNomeFornecedor = new TextBox { Dock = DockStyle.Fill, Name = "txtNomeFornecedor" };
+            txtNomeFornecedor = new TextBox { Dock = DockStyle.Fill, Name = "txtNomeFornecedor" };
             panel.Controls.Add(txtNomeFornecedor, 1, 0);
 
             // Label e MaskedTextBox para CNPJ
-            Label labelCNPJ = new Label { Text = "CNPJ:", Name = "labelCNPJ" };
+            labelCNPJ = new Label { Text = "CNPJ:", Name = "labelCNPJ" };
             panel.Controls.Add(labelCNPJ, 0, 1);
-            MaskedTextBox mtxtCNPJ = new MaskedTextBox { Mask = "00.000.000/0000-00", Dock = DockStyle.Fill, Name = "mtxtCNPJ" };
+            // mtxtCNPJ = new MaskedTextBox { Mask = "00.000.000/0000-00", Dock = DockStyle.Fill, Name = "mtxtCNPJ" };
+            mtxtCNPJ = new MaskedTextBox { Dock = DockStyle.Fill, Name = "mtxtCNPJ" };
             panel.Controls.Add(mtxtCNPJ, 1, 1);
 
             // Label e MaskedTextBox para Telefone
-            Label labelTelefone = new Label { Text = "Telefone:", Name = "labelTelefone" };
+            labelTelefone = new Label { Text = "Telefone:", Name = "labelTelefone" };
             panel.Controls.Add(labelTelefone, 0, 2);
-            MaskedTextBox mtxtTelefone = new MaskedTextBox { Mask = "(00) 00000-0000", Dock = DockStyle.Fill, Name = "mtxtTelefone" };
+            mtxtTelefone = new MaskedTextBox { Dock = DockStyle.Fill, Name = "mtxtTelefone" };
+            // mtxtTelefone = new MaskedTextBox { Mask = "(00) 00000-0000", Dock = DockStyle.Fill, Name = "mtxtTelefone" };
             panel.Controls.Add(mtxtTelefone, 1, 2);
 
             // Label e TextBox para Endereço
-            Label labelEndereco = new Label { Text = "Endereço:", Name = "labelEndereco" };
+            labelEndereco = new Label { Text = "Endereço:", Name = "labelEndereco" };
             panel.Controls.Add(labelEndereco, 0, 3);
-            TextBox txtEndereco = new TextBox { Dock = DockStyle.Fill, Name = "txtEndereco" };
+            txtEndereco = new TextBox { Dock = DockStyle.Fill, Name = "txtEndereco" };
             panel.Controls.Add(txtEndereco, 1, 3);
 
             // Botões
@@ -341,21 +329,13 @@ namespace Front_End
             return panel;
         }
 
-        // Evento de clique do botão de Logout
-        private void BtnLogout_Click(object sender, EventArgs e)
-        {
-            // Exibe a tela de login novamente
-            Login loginForm = new Login();
-            loginForm.Show();
-
-            // Esconde a tela do atendente
-            this.Hide();
-        }
-
         #region Botões Eventos
         private void BotaoInserir_click(object sender, EventArgs e)
         {
             CRUD_Fornecedores crud = new CRUD_Fornecedores();
+
+            // POR FAVOR WILL DO FUTURO, TIRAR OS CARACTERES DO CNPJ, CPF E TELEFONE PARA ARRUMAR ESTE ERRO
+            // ASS: WILL DO PASSADO
 
             try
             {
@@ -363,6 +343,9 @@ namespace Front_End
                 string cnpj = mtxtCNPJ.Text;
                 string telefone = mtxtTelefone.Text;
                 string endereco = txtEndereco.Text;
+
+                MessageBox.Show($"nome: {nome}, cnpj: {cnpj}, telefone: {telefone}, endereco: {endereco}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
                 crud.Inserir_Fornecedor(nome, cnpj, telefone, endereco);
 
@@ -384,12 +367,12 @@ namespace Front_End
         #endregion
 
 
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new GerenteForm());
-        }
+        //     [STAThread]
+        //     static void Main()
+        //     {
+        //         Application.EnableVisualStyles();
+        //         Application.Run(new GerenteForm());
+        //     }
 
     }
 }
