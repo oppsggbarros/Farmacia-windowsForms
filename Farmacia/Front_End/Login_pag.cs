@@ -7,13 +7,13 @@ namespace Front_End
 {
     public class Executar
     {
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
-        }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.SetCompatibleTextRenderingDefault(false);
+        //     Application.Run(new Login());
+        // }
     }
 
     public class Login : Form

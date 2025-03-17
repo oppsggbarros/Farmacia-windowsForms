@@ -40,6 +40,21 @@ namespace Front_End
             tabControl.TabPages.Add(tabFornecedores);
             tabControl.TabPages.Add(tabRelatorios);
             this.Controls.Add(tabControl);
+
+            // Criando o botão de Logout
+            Button btnLogout = new Button
+            {
+                Text = "Sair",
+                BackColor = Color.Red,
+                ForeColor = Color.White,
+                Dock = DockStyle.Bottom,
+                Height = 40
+            };
+
+            btnLogout.Click += BtnLogout_Click;
+
+            // Adicionando o botão à interface
+            this.Controls.Add(btnLogout);
         }
 
         private TableLayoutPanel CriarPainelUsuarios()
@@ -188,12 +203,23 @@ namespace Front_End
             return panel;
         }
 
+        // Evento de clique do botão de Logout
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            // Exibe a tela de login novamente
+            Login loginForm = new Login();
+            loginForm.Show();
 
-        // [STAThread]
-        // static void Main()
-        // {
-        //     Application.EnableVisualStyles();
-        //     Application.Run(new FarmaceuticoForm());
-        // }
+            // Esconde a tela do atendente
+            this.Hide();
+        }
+
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.Run(new FarmaceuticoForm());
+        }
     }
 }

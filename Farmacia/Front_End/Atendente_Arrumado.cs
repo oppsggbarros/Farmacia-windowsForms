@@ -34,6 +34,21 @@ namespace Front_End
             tabControl.TabPages.Add(tabRegistro);
             tabControl.TabPages.Add(tabConsulta);
             this.Controls.Add(tabControl);
+
+            // Criando o botão de Logout
+            Button btnLogout = new Button
+            {
+                Text = "Sair",
+                BackColor = Color.Red,
+                ForeColor = Color.White,
+                Dock = DockStyle.Bottom,
+                Height = 40
+            };
+
+            btnLogout.Click += BtnLogout_Click;
+
+            // Adicionando o botão à interface
+            this.Controls.Add(btnLogout);
         }
 
         private TableLayoutPanel CriarPainelRegistro()
@@ -132,11 +147,22 @@ namespace Front_End
             return panel;
         }
 
-        // [STAThread]
-        // static void Main()
-        // {
-        //     Application.EnableVisualStyles();
-        //     Application.Run(new AtendenteForm());
-        // }
+        // Evento de clique do botão de Logout
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            // Exibe a tela de login novamente
+            Login loginForm = new Login();
+            loginForm.Show();
+
+            // Esconde a tela do atendente
+            this.Hide();
+        }
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.Run(new AtendenteForm());
+        }
     }
 }
