@@ -21,6 +21,7 @@ namespace Front_End
         private Label lblLogin, lblSenha;
         private TextBox txtLogin, txtSenha;
         private Button btnLogin;
+        private Panel panelContainer;
 
         public Login()
         {
@@ -28,24 +29,34 @@ namespace Front_End
             this.Text = "Login";
             this.BackColor = Color.White;
             this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.BackgroundImage = Image.FromFile(@"C:\\Users\\kauavicente\\Documents\\Aulas C#\\Backend-Digix\\Aula 6 - Desafio\\Farmacia-windowsForms\\Farmacia\\Front_End\\farmaciatela.jpg");
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
             Font fontePadrao = new Font("Arial", 12, FontStyle.Bold);
 
-            lblLogin = new Label { Text = "Login:", Location = new Point(20, 20), Font = fontePadrao, AutoSize = true };
-            txtLogin = new TextBox { Location = new Point(150, 20), Width = 200 };
+            panelContainer = new Panel
+            {
+                Size = new Size(300, 200),
+                BackColor = Color.FromArgb(200, Color.White),
+                Anchor = AnchorStyles.None
+            };
+            panelContainer.Location = new Point((this.ClientSize.Width - panelContainer.Width) / 2, (this.ClientSize.Height - panelContainer.Height) / 2);
+            this.Controls.Add(panelContainer);
 
-            lblSenha = new Label { Text = "Senha:", Location = new Point(20, 50), Font = fontePadrao, AutoSize = true };
-            txtSenha = new TextBox { Location = new Point(150, 50), Width = 200, PasswordChar = '*' };
+            lblLogin = new Label { Text = "Login:", Font = fontePadrao, AutoSize = true, Location = new Point(20, 20) };
+            txtLogin = new TextBox { Width = 200, Location = new Point(80, 20) };
 
-            btnLogin = new Button { Text = "Login", Location = new Point(150, 80), Width = 100 };
+            lblSenha = new Label { Text = "Senha:", Font = fontePadrao, AutoSize = true, Location = new Point(20, 60) };
+            txtSenha = new TextBox { Width = 200, Location = new Point(80, 60), PasswordChar = '*' };
+
+            btnLogin = new Button { Text = "Login", Width = 100, Location = new Point(100, 100) };
             btnLogin.Click += new EventHandler(btnLogin_Click);
 
-            this.Controls.AddRange(new Control[]
-            {
-                lblLogin, txtLogin,
-                lblSenha, txtSenha,
-                btnLogin
-            });
+            panelContainer.Controls.Add(lblLogin);
+            panelContainer.Controls.Add(txtLogin);
+            panelContainer.Controls.Add(lblSenha);
+            panelContainer.Controls.Add(txtSenha);
+            panelContainer.Controls.Add(btnLogin);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -62,30 +73,22 @@ namespace Front_End
                     if (usuario != null)
                     {
                         MessageBox.Show("Login bem-sucedido!");
-
                         this.Hide();
 
-                        if (usuario.Cargo == "Gerente")
+                        Form proximaTela = usuario.Cargo switch
                         {
-                            var formGerente = new GerenteForm();
-                            formGerente.Show();
-                        }
-                        if (usuario.Cargo == "Farmaceutico")
-                        {
-                            var formFarmaceutico = new FarmaceuticoForm();
-                            formFarmaceutico.Show();
-                        }
-                        if (usuario.Cargo == "Atendente")
-                        {
-                            var formAtendente = new AtendenteForm();
-                            formAtendente.Show();
-                        }
+                            "Gerente" => new GerenteForm(),
+                            "Farmaceutico" => new FarmaceuticoForm(),
+                            "Atendente" => new AtendenteForm(),
+                            _ => null
+                        };
+
+                        proximaTela?.Show();
                     }
                     else
                     {
                         MessageBox.Show("Login ou senha incorretos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    // this.Close();
                 }
                 catch (Exception ex)
                 {

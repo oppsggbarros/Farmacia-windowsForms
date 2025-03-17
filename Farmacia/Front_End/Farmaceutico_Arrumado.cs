@@ -189,11 +189,11 @@ namespace Front_End
         }
 
 
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new FarmaceuticoForm());
-        }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.Run(new FarmaceuticoForm());
+        // }
     }
 }

@@ -312,11 +312,11 @@ namespace Front_End
         }
 
 
-    //     [STAThread]
-    //     static void Main()
-    //     {
-    //         Application.EnableVisualStyles();
-    //         Application.Run(new GerenteForm());
-    //     }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.Run(new GerenteForm());
+        // }
     }
 }
