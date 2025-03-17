@@ -2,11 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Farmacia.Back_End.CRUD;
 // #606060 #EBEBEB #233ED9
 namespace Front_End
 {
     public partial class GerenteForm : Form
     {
+        // private CRUD_Fornecedores crud;
+        private TextBox txtNome, txtNomeFornecedor, txtEndereco;
+        private ComboBox cmbCargo;
+        private MaskedTextBox mtxtCPF, mtxtCNPJ, mtxtTelefone;
+        private TextBox txtSenha;
+        private Button btnInserir, btnInserirFornecedor, btnListaFornecedor, btnAtualizarFornecedor, btnApagarFornecedor, btnRelatorioFinanceiro, btnRelatorioEstoque, btnLista, btnAtualizar, btnApagar;
+        private DataGridView dgvUsuarios, dgvFornecedores, dgvRelatorios;
+
         public GerenteForm()
         {
             // InitializeComponent();
@@ -150,6 +159,8 @@ namespace Front_End
             return panel;
         }
 
+        #region PAINEL FORNECEDORES
+
         private TableLayoutPanel CriarPainelFornecedores()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true };
@@ -158,8 +169,8 @@ namespace Front_End
             // Label e TextBox para Nome
             Label labelNome = new Label { Text = "Nome:", Name = "labelNomeFornecedor" };
             panel.Controls.Add(labelNome, 0, 0);
-            TextBox txtNome = new TextBox { Dock = DockStyle.Fill, Name = "txtNomeFornecedor" };
-            panel.Controls.Add(txtNome, 1, 0);
+            TextBox txtNomeFornecedor = new TextBox { Dock = DockStyle.Fill, Name = "txtNomeFornecedor" };
+            panel.Controls.Add(txtNomeFornecedor, 1, 0);
 
             // Label e MaskedTextBox para CNPJ
             Label labelCNPJ = new Label { Text = "CNPJ:", Name = "labelCNPJ" };
@@ -192,7 +203,7 @@ namespace Front_End
             for (int i = 0; i < 4; i++)
                 buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
 
-            Button btnInserir = new Button
+            btnInserir = new Button
             {
                 Text = "Inserir Fornecedor",
                 BackColor = ColorTranslator.FromHtml("#233ED9"),
@@ -201,6 +212,9 @@ namespace Front_End
                 Dock = DockStyle.Fill,
                 Name = "btnInserirFornecedor"
             };
+
+            btnInserir.Click += new EventHandler(BotaoInserir_click);
+
             buttonsTable.Controls.Add(btnInserir, 0, 0);
 
             Button btnLista = new Button
@@ -252,6 +266,7 @@ namespace Front_End
             return panel;
         }
 
+        #endregion
 
         private TableLayoutPanel CriarPainelRelatorios()
         {
@@ -311,12 +326,44 @@ namespace Front_End
             return panel;
         }
 
+        #region Botões Eventos
+        private void BotaoInserir_click(object sender, EventArgs e)
+        {
+            CRUD_Fornecedores crud = new CRUD_Fornecedores();
 
-        // [STAThread]
-        // static void Main()
-        // {
-        //     Application.EnableVisualStyles();
-        //     Application.Run(new GerenteForm());
-        // }
+            try
+            {
+                string nome = txtNomeFornecedor.Text; // Use txtNomeFornecedor em vez de txtNome
+                string cnpj = mtxtCNPJ.Text;
+                string telefone = mtxtTelefone.Text;
+                string endereco = txtEndereco.Text;
+
+                crud.Inserir_Fornecedor(nome, cnpj, telefone, endereco);
+
+                // txtNomeFornecedor.Clear();
+                // mtxtCNPJ.Clear();
+                // mtxtTelefone.Clear();
+                // txtEndereco.Clear();
+
+                MessageBox.Show("Fornecedor inserido com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Erro ao inserir fornecedor: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+        #endregion
+
+
+        //     [STAThread]
+        //     static void Main()
+        //     {
+        //         Application.EnableVisualStyles();
+        //         Application.Run(new GerenteForm());
+        //     }
+
     }
 }

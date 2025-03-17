@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
+using Farmacia.Back_End.ConexaoBanco;
 
 namespace Front_End
 {
@@ -29,7 +30,7 @@ namespace Front_End
             this.Text = "Login";
             this.BackColor = Color.White;
             this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.BackgroundImage = Image.FromFile(@"C:\\Users\\kauavicente\\Documents\\Aulas C#\\Backend-Digix\\Aula 6 - Desafio\\Farmacia-windowsForms\\Farmacia\\Front_End\\farmaciatela.jpg");
+            this.BackgroundImage = Image.FromFile(@"C:\Users\willdanthealaman\Documents\GitHub\Farmacia-windowsForms\Farmacia\Front_End\farmaciatela.jpg");
             this.BackgroundImageLayout = ImageLayout.Stretch;
 
             Font fontePadrao = new Font("Arial", 12, FontStyle.Bold);
@@ -64,18 +65,18 @@ namespace Front_End
             string cpf = txtLogin.Text;
             string senha = txtSenha.Text;
 
-            using (var context = new AppDbContext())
+            using (var context = new Conexao())
             {
                 try
                 {
-                    var usuario = context.Usuarios.FirstOrDefault(u => u.Cpf == cpf && u.Senha == senha);
+                    var usuario = context.Usuarios.FirstOrDefault(u => u.cpf == cpf && u.senha == senha);
 
                     if (usuario != null)
                     {
                         MessageBox.Show("Login bem-sucedido!");
                         this.Hide();
 
-                        Form proximaTela = usuario.Cargo switch
+                        Form proximaTela = usuario.cargo switch
                         {
                             "Gerente" => new GerenteForm(),
                             "Farmaceutico" => new FarmaceuticoForm(),
