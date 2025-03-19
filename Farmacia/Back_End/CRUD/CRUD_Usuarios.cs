@@ -30,7 +30,7 @@ namespace Farmacia.Back_End.CRUD
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao registrar usuário: " + ex.Message);
+                Console.WriteLine("Detalhes do erro interno: " + ex.InnerException.Message);
             }
         }
 

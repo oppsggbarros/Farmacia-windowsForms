@@ -2,11 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Farmacia.Back_End.CRUD;
+
+// using System.IDisposable.
+using Farmacia.Back_End.Services;
 // #606060 #EBEBEB #233ED9
 namespace Front_End
 {
     public partial class FarmaceuticoForm : Form
     {
+        private TextBox txtCliente, txtMedicamento, txtQuantidade, txtValorTotal;
+        private DateTimePicker dtpDataVenda;
+        private Button btnInserir, btnExcluir;
         public FarmaceuticoForm()
         {
             // InitializeComponent();
@@ -57,6 +64,7 @@ namespace Front_End
             this.Controls.Add(btnLogout);
         }
 
+        #region  PAINEL VENDAS
         private TableLayoutPanel CriarPainelUsuarios()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true, Name = "panelRegistro" };
@@ -66,32 +74,34 @@ namespace Front_End
             Label lblCliente = new Label { Text = "Cliente:", Name = "lblCliente" };
             panel.Controls.Add(lblCliente, 0, 0);
 
-            TextBox txtCliente = new TextBox { Dock = DockStyle.Fill, Name = "txtCliente" };
+            txtCliente = new TextBox { Dock = DockStyle.Fill, Name = "txtCliente" };
             panel.Controls.Add(txtCliente, 1, 0);
 
             Label lblMedicamento = new Label { Text = "Medicamento:", Name = "lblMedicamento" };
             panel.Controls.Add(lblMedicamento, 0, 2);
 
-            TextBox txtMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtMedicamento" };
+            txtMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtMedicamento" };
             panel.Controls.Add(txtMedicamento, 1, 2);
 
             Label lblQuantidade = new Label { Text = "Quantidade:", Name = "lblQuantidade" };
             panel.Controls.Add(lblQuantidade, 0, 3);
 
-            TextBox txtQuantidade = new TextBox { Dock = DockStyle.Fill, Name = "txtQuantidade" };
+            txtQuantidade = new TextBox { Dock = DockStyle.Fill, Name = "txtQuantidade" };
             panel.Controls.Add(txtQuantidade, 1, 3);
 
             Label lblDataVenda = new Label { Text = "Data da Venda:", Name = "lblDataVenda" };
             panel.Controls.Add(lblDataVenda, 0, 4);
 
-            DateTimePicker dtpDataVenda = new DateTimePicker { Dock = DockStyle.Fill, Enabled = false, Name = "dtpDataVenda" };
+            dtpDataVenda = new DateTimePicker { Dock = DockStyle.Fill, Enabled = false, Name = "dtpDataVenda" };
             panel.Controls.Add(dtpDataVenda, 1, 4);
 
             Label lblValorTotal = new Label { Text = "Valor Total:", Name = "lblValorTotal" };
             panel.Controls.Add(lblValorTotal, 0, 5);
 
-            TextBox txtValorTotal = new TextBox { Dock = DockStyle.Fill, Enabled = false, Name = "txtValorTotal" };
+            txtValorTotal = new TextBox { Dock = DockStyle.Fill, Enabled = false, Name = "txtValorTotal" };
             panel.Controls.Add(txtValorTotal, 1, 5);
+
+            txtQuantidade.TextChanged += (s, e) => CalcularValorTotal();
 
             // Tabela de Botões
             TableLayoutPanel buttonsTable = new TableLayoutPanel
@@ -106,11 +116,15 @@ namespace Front_End
             for (int i = 0; i < 2; i++)
                 buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
 
-            Button btnInserir = new Button { Text = "Inserir Medicamento", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserir" };
+            btnInserir = new Button { Text = "Registrar venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserir" };
             buttonsTable.Controls.Add(btnInserir, 0, 0);
 
-            Button btnLista = new Button { Text = "Atualizar Venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnLista" };
-            buttonsTable.Controls.Add(btnLista, 1, 0);
+            // btnInserir.Click += new EventHandler(BotaoInserirVenda_click);
+
+            btnExcluir = new Button { Text = "Excluir Venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnExcluir" };
+
+
+            buttonsTable.Controls.Add(btnExcluir, 1, 0);
 
             panel.Controls.Add(buttonsTable, 1, 6);
 
@@ -120,6 +134,34 @@ namespace Front_End
             return panel;
         }
 
+        // CalcularValorTotal
+        private void CalcularValorTotal()
+        {
+            if (int.TryParse(txtQuantidade.Text, out int quantidade) && !string.IsNullOrWhiteSpace(txtMedicamento.Text))
+            {
+                using (var service = new MedicamentoService())
+                {
+                    int id = Convert.ToInt32(txtQuantidade.Text);
+                    // Simula a busca do ID do medicamento com base no nome (ajuste conforme necessário)
+                    var medicamento = service.BuscarMedicamentoPorNome(id);
+                    if (medicamento != null)
+                    {
+                        double valorTotal = medicamento.preco * quantidade;
+                        txtValorTotal.Text = valorTotal.ToString("C2"); // Formato de moeda
+                    }
+                    else
+                    {
+                        MessageBox.Show("Medicamento não encontrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                txtValorTotal.Text = string.Empty; // Limpa o campo se não for válido
+            }
+        }
+
+        #endregion
         private TableLayoutPanel CriarPainelConsulta()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, AutoSize = true, Name = "panelConsulta" };
@@ -214,12 +256,30 @@ namespace Front_End
             this.Hide();
         }
 
+        #region Botões Eventos Vendas
 
-        // [STAThread]
-        // static void Main()
-        // {
-        //     Application.EnableVisualStyles();
-        //     Application.Run(new FarmaceuticoForm());
-        // }
+        private void BotaoInserirVenda_click(string cliente_nome, int medicamento_id, int quantidade, DateTime data_venda, float valor_total)
+        {
+            CRUD_Vendas crud = new();
+            try
+            {
+                // string nome = 
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Erro ao inserir venda: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
+
+
+    #endregion
+
+
+    // [STAThread]
+    // static void Main()
+    // {
+    //     Application.EnableVisualStyles();
+    //     Application.Run(new FarmaceuticoForm());
+    // }
 }
