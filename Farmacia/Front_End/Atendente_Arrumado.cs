@@ -2,17 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Farmacia.Back_End.CRUD;
+using Farmacia.Back_End.Models;
 
 namespace Front_End
 {
     public partial class AtendenteForm : Form
     {
+        private TextBox txtCliente,txtMedicamento,txtQuantidade,txtValorTotal;
+        private Button btnInserir,btnLista;
+
+        private DataGridView dgvVendas;
         public AtendenteForm()
         {
             // InitializeComponent();
             ConfigurarInterface();
         }
 
+        #region Configuração da Interface
         private void ConfigurarInterface()
         {
             this.Text = "Painel do Atendente";
@@ -50,7 +57,9 @@ namespace Front_End
             // Adicionando o botão à interface
             this.Controls.Add(btnLogout);
         }
+        #endregion
 
+        #region Painel de Registro
         private TableLayoutPanel CriarPainelRegistro()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true, Name = "panelRegistro" };
@@ -60,19 +69,19 @@ namespace Front_End
             Label lblCliente = new Label { Text = "Cliente:", Name = "lblCliente" };
             panel.Controls.Add(lblCliente, 0, 0);
 
-            TextBox txtCliente = new TextBox { Dock = DockStyle.Fill, Name = "txtCliente" };
+            txtCliente = new TextBox { Dock = DockStyle.Fill, Name = "txtCliente" };
             panel.Controls.Add(txtCliente, 1, 0);
 
             Label lblMedicamento = new Label { Text = "Medicamento:", Name = "lblMedicamento" };
             panel.Controls.Add(lblMedicamento, 0, 2);
 
-            TextBox txtMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtMedicamento" };
+            txtMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtMedicamento" };
             panel.Controls.Add(txtMedicamento, 1, 2);
 
             Label lblQuantidade = new Label { Text = "Quantidade:", Name = "lblQuantidade" };
             panel.Controls.Add(lblQuantidade, 0, 3);
 
-            TextBox txtQuantidade = new TextBox { Dock = DockStyle.Fill, Name = "txtQuantidade" };
+            txtQuantidade = new TextBox { Dock = DockStyle.Fill, Name = "txtQuantidade" };
             panel.Controls.Add(txtQuantidade, 1, 3);
 
             Label lblDataVenda = new Label { Text = "Data da Venda:", Name = "lblDataVenda" };
@@ -84,7 +93,7 @@ namespace Front_End
             Label lblValorTotal = new Label { Text = "Valor Total:", Name = "lblValorTotal" };
             panel.Controls.Add(lblValorTotal, 0, 5);
 
-            TextBox txtValorTotal = new TextBox { Dock = DockStyle.Fill, Enabled = false, Name = "txtValorTotal" };
+            txtValorTotal = new TextBox { Dock = DockStyle.Fill, Enabled = false, Name = "txtValorTotal" };
             panel.Controls.Add(txtValorTotal, 1, 5);
 
             // Tabela de Botões
@@ -100,12 +109,24 @@ namespace Front_End
             for (int i = 0; i < 2; i++)
                 buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
 
-            Button btnInserir = new Button { Text = "Inserir Medicamento", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserir" };
+            btnInserir = new Button { Text = "Inserir Medicamento", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserir" };
+            // btnInserir.Click += new EventHandler(btnInserir_Click);
             buttonsTable.Controls.Add(btnInserir, 0, 0);
 
-            Button btnLista = new Button { Text = "Atualizar Venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnLista" };
-            buttonsTable.Controls.Add(btnLista, 1, 0);
 
+
+            btnLista = new Button { Text = "Atualizar Venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnLista" };
+            btnLista.Click += new EventHandler(btnLista_Click);
+            buttonsTable.Controls.Add(btnLista, 1, 0);
+            
+            dgvVendas = new DataGridView 
+            {
+                BorderStyle = BorderStyle.FixedSingle,
+                ForeColor = Color.Black,
+                BackgroundColor = Color.White,
+                Dock = DockStyle.Fill,
+                Name = "dgvVendas"
+            };
 
             panel.Controls.Add(buttonsTable, 1, 6);
 
@@ -114,7 +135,9 @@ namespace Front_End
 
             return panel;
         }
+        #endregion
 
+        #region Painel de Consulta
         private TableLayoutPanel CriarPainelConsulta()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, AutoSize = true, Name = "panelConsulta" };
@@ -146,6 +169,7 @@ namespace Front_End
 
             return panel;
         }
+        #endregion
 
         // Evento de clique do botão de Logout
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -157,6 +181,50 @@ namespace Front_End
             // Esconde a tela do atendente
             this.Hide();
         }
+
+        private void btnLista_Click(object sender, EventArgs e)
+        {
+            CRUD_Vendas crudVendas = new CRUD_Vendas();
+
+            try
+            {
+                List<Vendas> vendas = crudVendas.Listar_Vendas();
+                if(vendas.Count > 0)
+                {
+                    dgvVendas.DataSource = null;
+                    dgvVendas.DataSource = vendas;
+
+                }
+                else
+                {
+                    MessageBox.Show($"Nao ha vendas", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch(System.Exception ex)
+            {
+                MessageBox.Show($"Erro ao listar vendas: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        // private void btnInserir_Click(object sender, EventArgs e)
+        // {
+        //     CRUD_Vendas crudVendas = new CRUD_Vendas();
+
+        //     try
+        //     {
+        //         string nome = txtCliente.Text;
+        //         string medicamento = txtMedicamento.Text;
+        //         int quantidade = Convert.ToInt32(txtQuantidade.Text);
+        //         DateTime data_venda = DateTime.Now;
+        //         decimal valor_total = Convert.ToDecimal(txtValorTotal.Text);
+
+        //         crudVendas.Inserir_Venda(nome, medicamento, quantidade, data_venda, valor_total, 1);
+                
+        //     }
+        // }
+
+
 
         // [STAThread]
         // static void Main()
