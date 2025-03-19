@@ -14,8 +14,6 @@ namespace Front_End
     {
         private TextBox txtCliente, txtMedicamento, txtQuantidade, txtValorTotal, txtCodigoMedicamento;
         private Button btnInserir, btnLista, btnPesquisar;
-
-
         private DataGridView dgvVendas, dgvConsulta;
         public AtendenteForm()
         {
@@ -249,7 +247,7 @@ namespace Front_End
                 DateTime data_venda = DateTime.Now;
                 decimal valor_total = Convert.ToDecimal(txtValorTotal.Text);
 
-                crudVendas.Inserir_Venda(nome, medicamento, quantidade, data_venda, valor_total, 1);
+                crudVendas.Inserir_Venda(nome, medicamento, quantidade, data_venda, valor_total);
 
 
                 MessageBox.Show($"Venda inserida com sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);

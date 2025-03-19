@@ -49,7 +49,19 @@ namespace Farmacia.Back_End.CRUD
             }
         }
 
-        public void Listar_Medicamentos()
+        public List<Medicamentos> ConsultarMedicamentosId(int id)
+        {
+            using (var con = new Conexao())
+            {
+                var medicamentos = con.Medicamentos
+                                    .Where(v => v.id == id)  // Filtra pelas med do medicamento com o id fornecido
+                                    .ToList();
+                return medicamentos;
+
+            }
+        }
+
+        public void Listar_Medicamentos1()
         {
             using (var con = new Conexao())
             {
@@ -61,7 +73,7 @@ namespace Farmacia.Back_End.CRUD
             }
         }
 
-        
+
         public List<Medicamentos> Listar_MedicamentosValidade()
         {
             using (var con = new Conexao())
@@ -70,7 +82,7 @@ namespace Farmacia.Back_End.CRUD
                 return medicamentos;
             }
         }
-        
+
 
         public void Deletar_Medicamento(int id)
         {

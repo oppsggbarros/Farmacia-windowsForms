@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Farmacia.Back_End.CRUD;
+using Farmacia.Back_End.ConexaoBanco;
 
 // using System.IDisposable.
 using Farmacia.Back_End.Services;
@@ -194,7 +195,7 @@ namespace Front_End
 
             btnPesquisar = new Button { Text = "Pesquisar", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnPesquisar" };
 
-            btnPesquisar.Click += new EventHandler(BotaoListarMEDICAMENTO_click);
+            btnPesquisar.Click += new EventHandler(btnPesquiar_Click);
             buttonsTable.Controls.Add(btnPesquisar, 0, 3);
 
             panel.Controls.Add(buttonsTable, 0, 4);
@@ -346,7 +347,7 @@ namespace Front_End
 
                 dgvRelatorios.DataSource = null;  // Limpa o DataGridView
 
-                var vendas = crud.Consultar_Medicamento(id);  // Obtém as vendas do medicamento
+                var vendas = crud.ConsultarMedicamentosId(id);  // Obtém as vendas do medicamento
                 if (vendas != null && vendas.Count > 0)
                 {
                     dgvRelatorios.DataSource = vendas;  // Atribui a lista de vendas ao DataGridView
@@ -359,6 +360,42 @@ namespace Front_End
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao listar vendas: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnPesquiar_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(txtCodigoMedicamento.Text);
+
+            using (var con = new Conexao())
+            {
+                try
+                {
+                    var medicamento = con.Medicamentos.Find(id);
+
+                    if (medicamento != null)
+                    {
+                        dgvConsulta.Rows.Clear();
+                        dgvConsulta.Columns.Clear();
+
+                        dgvConsulta.Columns.Add("id", "ID");
+                        dgvConsulta.Columns.Add("nome", "Nome");
+                        dgvConsulta.Columns.Add("preco", "Preço");
+                        dgvConsulta.Columns.Add("quantidade", "Quantidade");
+
+                        dgvConsulta.Rows.Add(medicamento.id, medicamento.nome, medicamento.preco);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Medicamento não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show($"Erro ao pesquisar medicamento: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
         }
     }

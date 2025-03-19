@@ -296,30 +296,18 @@ namespace Front_End
             // Botões
             TableLayoutPanel buttonsTable = new TableLayoutPanel
             {
-                ColumnCount = 2,
+                ColumnCount = 1,
                 Dock = DockStyle.Fill,
                 AutoSize = true,
                 Name = "buttonsTableRelatorios"
             };
 
             // Adiciona colunas com preenchimento proporcional
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
                 buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 
-            // Botão Relatório Financeiro
-            Button btnRelatorioFinanceiro = new Button
-            {
-                Text = "Relatório Financeiro",
-                BackColor = ColorTranslator.FromHtml("#233ED9"),
-                ForeColor = ColorTranslator.FromHtml("#FFF"),
-                Height = 50,
-                Dock = DockStyle.Fill,
-                Name = "btnRelatorioFinanceiro"
-            };
-            buttonsTable.Controls.Add(btnRelatorioFinanceiro, 0, 0);
-
             // Botão Relatório de Estoque
-            Button btnRelatorioEstoque = new Button
+            btnRelatorioEstoque = new Button
             {
                 Text = "Relatório de Estoque",
                 BackColor = ColorTranslator.FromHtml("#233ED9"),
@@ -328,6 +316,8 @@ namespace Front_End
                 Dock = DockStyle.Fill,
                 Name = "btnRelatorioEstoque"
             };
+
+            btnRelatorioEstoque.Click += new EventHandler(BotaoListarEstoque_click);
             buttonsTable.Controls.Add(btnRelatorioEstoque, 1, 0);
 
             // Adiciona a tabela de botões ao painel
@@ -519,6 +509,35 @@ namespace Front_End
                 MessageBox.Show($"Erro ao listar usuários: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BotaoListarEstoque_click(object sender, EventArgs e)
+        {
+           CRUD_Medicamentos crud = new CRUD_Medicamentos();  // Suponho que o nome da classe seja CRUD_Medicamentos
+
+            try
+            {
+                dgvRelatorios.DataSource = null;  // Limpa o DataGridView
+
+                // Obtém a lista de medicamentos com a validade ordenada
+                var med = crud.Listar_MedicamentosValidade();
+
+                // Verifica se a lista de medicamentos não é nula e contém elementos
+                if (med != null && med.Count > 0)
+                {
+                    dgvRelatorios.DataSource = med;  // Atribui a lista de medicamentos ao DataGridView
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum medicamento encontrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao listar medicamentos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        
 
         private void BotaoAtualizarUsuario_click(object sender, EventArgs e)
         {
