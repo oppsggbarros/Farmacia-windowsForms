@@ -141,13 +141,13 @@ namespace Front_End
             {
                 using (var service = new MedicamentoService())
                 {
-                    int id = Convert.ToInt32(txtQuantidade.Text);
+                    int id = Convert.ToInt32(txtMedicamento.Text);
                     // Simula a busca do ID do medicamento com base no nome (ajuste conforme necessário)
                     var medicamento = service.BuscarMedicamentoPorNome(id);
                     if (medicamento != null)
                     {
                         double valorTotal = medicamento.preco * quantidade;
-                        txtValorTotal.Text = valorTotal.ToString("C2"); // Formato de moeda
+                        txtValorTotal.Text = valorTotal.ToString(); // Formato de moeda
                     }
                     else
                     {
