@@ -34,12 +34,12 @@ namespace Farmacia.Back_End.CRUD
             }
         }
 
-       
+
         public List<Usuarios> Listar_Usuarios()
         {
             try
             {
-                
+
                 using (var con = new Conexao())
                 {
                     return con.Usuarios.ToList();
@@ -47,27 +47,42 @@ namespace Farmacia.Back_End.CRUD
             }
             catch (System.Exception ex)
             {
-                
+
                 MessageBox.Show(ex.Message);
                 return new List<Usuarios>();
             }
         }
 
-        
-        public void Atualizar_Usuario(int id, string nome, string cargo, string cpf, string senha)
+
+        public void Atualizar_Usuario(string nome, string cargo, string cpf, string senha)
         {
-            try 
+            try
             {
-                
+
                 using (var con = new Conexao())
                 {
-                    var usuario = con.Usuarios.Find(id);
+                    var usuario = con.Usuarios.FirstOrDefault(u => u.cpf == cpf);
                     if (usuario != null)
                     {
-                        usuario.nome = nome;
-                        usuario.cargo = cargo;
-                        usuario.cpf = cpf;
-                        usuario.senha = senha;
+                        if (!string.IsNullOrWhiteSpace(nome))
+                        {
+                            usuario.nome = nome;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(cargo))
+                        {
+                            usuario.cargo = cargo;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(cpf))
+                        {
+                            usuario.cpf = cpf;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(senha))
+                        {
+                            usuario.senha = senha;
+                        }
 
                         con.SaveChanges();
                         Console.WriteLine("Usuário atualizado com sucesso!");
@@ -77,40 +92,40 @@ namespace Farmacia.Back_End.CRUD
                         Console.WriteLine("Usuário não encontrado!");
                     }
                 }
-            
+
             }
 
             catch (System.Exception ex)
             {
-                
+
                 MessageBox.Show(ex.Message);
-            }   
+            }
         }
 
-        
+
         public void Excluir_Usuario(int id)
         {
             try
             {
                 using (var con = new Conexao())
-            {
-                var usuario = con.Usuarios.Find(id);
-                if (usuario != null)
                 {
-                    con.Usuarios.Remove(usuario);
-                    con.SaveChanges();
-                    Console.WriteLine("Usuário excluído com sucesso!");
+                    var usuario = con.Usuarios.Find(id);
+                    if (usuario != null)
+                    {
+                        con.Usuarios.Remove(usuario);
+                        con.SaveChanges();
+                        Console.WriteLine("Usuário excluído com sucesso!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Usuário não encontrado!");
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Usuário não encontrado!");
-                }
-            }
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
+
             }
         }
 

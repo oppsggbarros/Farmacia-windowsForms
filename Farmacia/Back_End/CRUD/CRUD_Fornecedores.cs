@@ -8,12 +8,12 @@ using Farmacia.Back_End.ConexaoBanco;
 namespace Farmacia.Back_End.CRUD
 {
     public class CRUD_Fornecedores
-    {        
+    {
         public void Inserir_Fornecedor(string nome, string cnpj, string telefone, string endereco)
         {
             try
             {
-                 using (var con = new Conexao())
+                using (var con = new Conexao())
                 {
                     con.Fornecedores.Add(new Fornecedores
                     {
@@ -32,13 +32,13 @@ namespace Farmacia.Back_End.CRUD
             {
                 MessageBox.Show(ex.Message);
             }
-           
+
         }
 
-        
+
         public List<Fornecedores> Listar_Fornecedores()
         {
-            try 
+            try
             {
                 using (var con = new Conexao())
                 {
@@ -53,36 +53,51 @@ namespace Farmacia.Back_End.CRUD
             }
         }
 
-       
-        public void Atualizar_Fornecedor(int id, string nome, string cnpj, string telefone, string endereco)
+
+        public void Atualizar_Fornecedor(string nome, string cnpj, string telefone, string endereco)
         {
             try
             {
                 using (var con = new Conexao())
-            {
-                var fornecedor = con.Fornecedores.Find(id);
-                if (fornecedor != null)
                 {
-                    fornecedor.nome = nome;
-                    fornecedor.cnpj = cnpj;
-                    fornecedor.telefone = telefone;
-                    fornecedor.endereco = endereco;
+                    var fornecedor = con.Fornecedores.FirstOrDefault(f => f.cnpj == cnpj);
+                    if (fornecedor != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(nome))
+                        {
+                            fornecedor.nome = nome;
+                        }
 
-                    con.SaveChanges();
-                    Console.WriteLine("Fornecedor atualizado com sucesso!");
+                        if (!string.IsNullOrWhiteSpace(cnpj))
+                        {
+                            fornecedor.cnpj = cnpj;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(telefone))
+                        {
+                            fornecedor.telefone = telefone;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(endereco))
+                        {
+                            fornecedor.endereco = endereco;
+                        }
+
+                        con.SaveChanges();
+                        Console.WriteLine("Fornecedor atualizado com sucesso!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Fornecedor não encontrado!");
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Fornecedor não encontrado!");
-                }
-            }
             }
             catch (System.Exception ex)
             {
-                
+
                 MessageBox.Show("Erro ao atualizar o fornecedor!", ex.Message);
             }
-            
+
         }
 
         public void Excluir_Fornecedor(int id)
@@ -106,13 +121,13 @@ namespace Farmacia.Back_End.CRUD
             }
             catch (System.Exception ex)
             {
-                
+
                 MessageBox.Show("Erro ao excluir o fornecedor!", ex.Message);
             }
-            
+
         }
 
-        
+
         public void Mostrar_Fornecedores()
         {
             var fornecedores = Listar_Fornecedores();

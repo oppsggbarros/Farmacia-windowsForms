@@ -158,11 +158,11 @@ namespace Front_End
             this.Hide();
         }
 
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.Run(new AtendenteForm());
-        }
+        // [STAThread]
+        // static void Main()
+        // {
+        //     Application.EnableVisualStyles();
+        //     Application.Run(new AtendenteForm());
+        // }
     }
 }
