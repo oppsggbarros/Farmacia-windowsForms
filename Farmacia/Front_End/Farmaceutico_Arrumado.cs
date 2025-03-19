@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Farmacia.Back_End.CRUD;
 
@@ -9,11 +12,14 @@ using Farmacia.Back_End.Services;
 // #606060 #EBEBEB #233ED9
 namespace Front_End
 {
+
+
     public partial class FarmaceuticoForm : Form
     {
-        private TextBox txtCliente, txtMedicamento, txtQuantidade, txtValorTotal;
+        private TextBox txtCliente, txtMedicamento, txtQuantidade, txtValorTotal, txtCodigoMedicamento;
         private DateTimePicker dtpDataVenda;
-        private Button btnInserir, btnExcluir;
+        private Button btnInserir, btnExcluir, btnPesquisar, btnValidades;
+        private DataGridView dgvConsulta, dgvRelatorios;
         public FarmaceuticoForm()
         {
             // InitializeComponent();
@@ -119,9 +125,11 @@ namespace Front_End
             btnInserir = new Button { Text = "Registrar venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnInserir" };
             buttonsTable.Controls.Add(btnInserir, 0, 0);
 
-            // btnInserir.Click += new EventHandler(BotaoInserirVenda_click);
+            btnInserir.Click += new EventHandler(BotaoInserirVenda_click);
 
-            btnExcluir = new Button { Text = "Excluir Venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnExcluir" };
+            btnExcluir = new Button { Text = "Limpar Venda", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnLimpar" };
+
+            btnExcluir.Click += new EventHandler(BotaoLimparVenda_click);
 
 
             buttonsTable.Controls.Add(btnExcluir, 1, 0);
@@ -162,6 +170,7 @@ namespace Front_End
         }
 
         #endregion
+        #region PAINEL CONUSLTA
         private TableLayoutPanel CriarPainelConsulta()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, AutoSize = true, Name = "panelConsulta" };
@@ -180,20 +189,24 @@ namespace Front_End
             Label lblCodigoMedicamento = new Label { Text = "Cód do Medicamento:", Dock = DockStyle.Fill, Name = "lblCodigoMedicamento" };
             panel.Controls.Add(lblCodigoMedicamento, 0, 1);
 
-            TextBox txtCodigoMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtCodigoMedicamento" };
+            txtCodigoMedicamento = new TextBox { Dock = DockStyle.Fill, Name = "txtCodigoMedicamento" };
             panel.Controls.Add(txtCodigoMedicamento, 0, 2);
 
-            Button btnPesquisar = new Button { Text = "Pesquisar", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnPesquisar" };
+            btnPesquisar = new Button { Text = "Pesquisar", BackColor = ColorTranslator.FromHtml("#233ED9"), ForeColor = ColorTranslator.FromHtml("#FFF"), Height = 50, Dock = DockStyle.Fill, Name = "btnPesquisar" };
+
+            btnPesquisar.Click += new EventHandler(BotaoListarMEDICAMENTO_click);
             buttonsTable.Controls.Add(btnPesquisar, 0, 3);
 
             panel.Controls.Add(buttonsTable, 0, 4);
 
-            DataGridView dgvConsulta = new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill, Name = "dgvConsulta" };
+            dgvConsulta = new DataGridView { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.Black, BackgroundColor = Color.White, Dock = DockStyle.Fill, Name = "dgvConsulta" };
             panel.Controls.Add(dgvConsulta, 0, 5);
 
             return panel;
         }
+        #endregion
 
+        #region PAINEL RELATÓRIOS VALIDADE
         private TableLayoutPanel CriarPainelRelatorios()
         {
             TableLayoutPanel panel = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, AutoSize = true, Name = "panelRelatorios" };
@@ -210,7 +223,7 @@ namespace Front_End
             for (int i = 0; i < 2; i++)
                 buttonsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 
-            Button btnValidades = new Button
+            btnValidades = new Button
             {
                 Text = "Validades dos Medicamentos",
                 BackColor = ColorTranslator.FromHtml("#233ED9"),
@@ -220,7 +233,9 @@ namespace Front_End
                 Name = "btnValidades"
             };
 
-            DataGridView dgvRelatorios = new DataGridView
+            btnValidades.Click += new EventHandler(BotaoListarValidade_click);
+
+            dgvRelatorios = new DataGridView
             {
                 BorderStyle = BorderStyle.FixedSingle,
                 ForeColor = Color.Black,
@@ -229,14 +244,7 @@ namespace Front_End
                 Name = "dgvRelatorios"
             };
 
-            // // Evento do botão para carregar os dados
-            // btnValidades.Click += (sender, e) =>
-            // {
-            //     using (var con = new Conexao())
-            //     {
-            //         dgvRelatorios.DataSource = con.Vendas.OrderBy(m => m.data_validade).ToList();
-            //     }
-            // };
+
 
             buttonsTable.Controls.Add(btnValidades, 0, 0);
             panel.Controls.Add(buttonsTable, 1, 4);
@@ -244,6 +252,34 @@ namespace Front_End
 
             return panel;
         }
+
+        private void BotaoListarValidade_click(object sender, EventArgs e)
+        {
+            CRUD_Medicamentos crud = new CRUD_Medicamentos();  // Suponho que o nome da classe seja CRUD_Medicamentos
+
+            try
+            {
+                dgvRelatorios.DataSource = null;  // Limpa o DataGridView
+
+                // Obtém a lista de medicamentos com a validade ordenada
+                var med = crud.Listar_MedicamentosValidade();
+
+                // Verifica se a lista de medicamentos não é nula e contém elementos
+                if (med != null && med.Count > 0)
+                {
+                    dgvRelatorios.DataSource = med;  // Atribui a lista de medicamentos ao DataGridView
+                }
+                else
+                {
+                    MessageBox.Show("Nenhum medicamento encontrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao listar medicamentos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
 
         // Evento de clique do botão de Logout
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -258,16 +294,71 @@ namespace Front_End
 
         #region Botões Eventos Vendas
 
-        private void BotaoInserirVenda_click(string cliente_nome, int medicamento_id, int quantidade, DateTime data_venda, float valor_total)
+        private void BotaoInserirVenda_click(object sender, EventArgs e)
         {
             CRUD_Vendas crud = new();
             try
             {
-                // string nome = 
+                string nome = txtCliente.Text;
+                int medicamentoId = Convert.ToInt32(txtMedicamento.Text);
+                int quantidade = Convert.ToInt32(txtQuantidade.Text);
+                decimal valor_total = Convert.ToDecimal(txtValorTotal.Text);
+                // float valor_total = ffloat.TryParse(txtValorTotal.Text, out valor_total);
+                DateTime data_venda = Convert.ToDateTime(dtpDataVenda.Text);
+
+                DialogResult confirmacao = MessageBox.Show("Concluir venda?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirmacao == DialogResult.Yes)
+                {
+                    crud.Inserir_Venda(nome, medicamentoId, quantidade, data_venda, valor_total);
+                    BotaoLimparVenda_click(sender, e);
+                }
+
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show($"Erro ao inserir venda: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BotaoLimparVenda_click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtCliente.Clear();
+                txtMedicamento.Clear();
+                txtQuantidade.Clear();
+                txtValorTotal.Clear();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Erro ao limpar venda: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BotaoListarMEDICAMENTO_click(object sender, EventArgs e)
+        {
+            CRUD_Medicamentos crud = new CRUD_Medicamentos();
+
+            try
+            {
+                int id = Convert.ToInt32(txtCodigoMedicamento.Text);
+
+                dgvRelatorios.DataSource = null;  // Limpa o DataGridView
+
+                var vendas = crud.Consultar_Medicamento(id);  // Obtém as vendas do medicamento
+                if (vendas != null && vendas.Count > 0)
+                {
+                    dgvRelatorios.DataSource = vendas;  // Atribui a lista de vendas ao DataGridView
+                }
+                else
+                {
+                    MessageBox.Show("Nenhuma venda encontrada para este medicamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao listar vendas: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

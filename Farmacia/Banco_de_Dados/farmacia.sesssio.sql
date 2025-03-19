@@ -1,3 +1,4 @@
+-- Active: 1739219465968@@localhost@5432@farmacia
 
 
 CREATE TABLE Usuarios (
@@ -70,6 +71,11 @@ INSERT INTO Usuarios (nome, cargo, cpf, senha) VALUES
 ('Bruno Lima', 'Farmaceutico', '54213699196', 'senha345'),
 ('Mariana Oliveira', 'Atendente', '87477004160', 'senha456'),
 ('Pedro Santos', 'Atendente', '50837931134', 'senha567');
+
+INSERT INTO Usuarios (nome, cargo, cpf, senha) VALUES
+('Carlos Silva', 'Gerente', '2', '3');
+INSERT INTO Usuarios (nome, cargo, cpf, senha) VALUES
+('Carlos Silva', 'Farmaceutico', '1', '2');
 
 INSERT INTO Medicamentos (nome, descricao, tipo, preco, estoque_atual, data_validade) VALUES
 ('Paracetamol', 'Analgésico e antitérmico', 'Comprimido', 12.50, 10, '2026-08-15'),
@@ -197,3 +203,8 @@ $$
 LANGUAGE plpgsql;
 
 SELECT fn_calcular_valor_total(1, 15);
+
+SELECT * FROM VENDAS;
+
+SELECT usuarioid FROM information_schema.columns 
+WHERE vendas = 'vendas';

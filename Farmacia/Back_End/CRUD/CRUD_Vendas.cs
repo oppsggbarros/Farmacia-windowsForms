@@ -10,7 +10,7 @@ namespace Farmacia.Back_End.CRUD
     public class CRUD_Vendas
     {
 
-        public void Inserir_Venda(string cliente_nome, int medicamento_id, int quantidade, DateTime data_venda, decimal valor_total, int atendente_id)
+        public void Inserir_Venda(string cliente_nome, int medicamento_id, int quantidade, DateTime data_venda, decimal valor_total)
         {
             data_venda = data_venda.ToUniversalTime();
             try
@@ -24,7 +24,7 @@ namespace Farmacia.Back_End.CRUD
                         quantidade = quantidade,
                         data_venda = data_venda,
                         valor_total = valor_total,
-                        atendente_id = atendente_id
+                        atendente_id = 2,
                     });
 
                     con.SaveChanges();
@@ -33,16 +33,16 @@ namespace Farmacia.Back_End.CRUD
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erro ao registrar venda: " + ex.Message);
+                Console.WriteLine("Detalhes do erro interno: " + ex.InnerException.Message);
             }
         }
 
-       
+
         public List<Vendas> Listar_Vendas()
         {
             try
             {
-                
+
                 using (var con = new Conexao())
                 {
                     return con.Vendas.ToList();
@@ -50,18 +50,18 @@ namespace Farmacia.Back_End.CRUD
             }
             catch (System.Exception ex)
             {
-                
+
                 MessageBox.Show(ex.Message);
                 return new List<Vendas>();
             }
         }
 
-        
+
         public void Atualizar_Venda(int id, string cliente_nome, int medicamento_id, int quantidade, DateTime data_venda, decimal valor_total, int atendente_id)
         {
-            try 
+            try
             {
-                
+
                 using (var con = new Conexao())
                 {
                     data_venda = data_venda.ToUniversalTime();
@@ -83,40 +83,60 @@ namespace Farmacia.Back_End.CRUD
                         Console.WriteLine("Venda não encontrada!");
                     }
                 }
-            
+
             }
 
             catch (System.Exception ex)
             {
-                
+
                 MessageBox.Show(ex.Message);
-            }   
+            }
         }
 
-        
+        public List<Vendas> Consultar_Medicamento(int id)
+        {
+            try
+            {
+                using (var con = new Conexao())
+                {
+                    var vendas = con.Vendas
+                                    .Where(v => v.medicamento_id == id)  // Filtra pelas vendas do medicamento com o id fornecido
+                                    .ToList();  // Retorna a lista de vendas
+
+                    return vendas;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return new List<Vendas>();  // Retorna uma lista vazia em caso de erro
+            }
+        }
+
+
         public void Excluir_Venda(int id)
         {
             try
             {
                 using (var con = new Conexao())
-            {
-                var venda = con.Vendas.Find(id);
-                if (venda != null)
                 {
-                    con.Vendas.Remove(venda);
-                    con.SaveChanges();
-                    Console.WriteLine("Venda excluída com sucesso!");
+                    var venda = con.Vendas.Find(id);
+                    if (venda != null)
+                    {
+                        con.Vendas.Remove(venda);
+                        con.SaveChanges();
+                        Console.WriteLine("Venda excluída com sucesso!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Venda não encontrada!");
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Venda não encontrada!");
-                }
-            }
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
+
             }
         }
 
